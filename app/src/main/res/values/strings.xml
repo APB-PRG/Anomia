@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Anomia</string>
+    <string name="free_you_thoughts_not_your_privacy">Free you thoughts, not your privacy</string>
+    <string name="anomia_control_your_privacy">Anomia, Control Your Privacy</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+</resources>

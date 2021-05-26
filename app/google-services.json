@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "625112683341",
+    "project_id": "anomia-ec0f5",
+    "storage_bucket": "anomia-ec0f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625112683341:android:9cb4c21e01787cf1a01d04",
+        "android_client_info": {
+          "package_name": "com.example.anomia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "625112683341-mumslfdpnpquli8sl8v7fl35n60v2rbf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPWGhtcjQdjJLqB6iu6ZgxsQnIPKhCDl8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "625112683341-mumslfdpnpquli8sl8v7fl35n60v2rbf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
