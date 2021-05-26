@@ -101,7 +101,7 @@ public class page_creation_compte extends AppCompatActivity {
                 user = new User(email, password, username, repassword);
                 registerUser(password, email, username);
             }
-            //add
+            //ajout d'une nouvelle maj github
         });
     }
 
