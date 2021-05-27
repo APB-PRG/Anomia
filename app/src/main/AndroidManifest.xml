@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Anomia">
-        <activity android:name=".page_connection"></activity>
+        <activity android:name=".page_connection" />
         <activity android:name=".page_creation_compte" />
         <activity android:name=".MainActivity">
             <intent-filter>

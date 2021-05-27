@@ -26,19 +26,14 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("WrongViewCast")
     private void initActivity(){
         //récupération des objets graphiques
-        btncadenas = (ImageView) findViewById(R.id.btncadenas);
+        btncadenas = findViewById(R.id.btncadenas);
 
         //listening du bouton cadenas
         createOnclicbtncadenas();
     }
 
     private void createOnclicbtncadenas() {
-        btncadenas.setOnClickListener(new ImageButton.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openActivityconnexion();
-            }
-        });
+        btncadenas.setOnClickListener(v -> openActivityconnexion());
     }
 
     //redirection vers connexion_page

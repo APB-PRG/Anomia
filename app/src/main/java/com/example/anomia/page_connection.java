@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
@@ -24,6 +26,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.core.Tag;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class page_connection extends AppCompatActivity {
 
@@ -90,14 +94,33 @@ public class page_connection extends AppCompatActivity {
 
                 //On renseigne l'user actuel avec le password et l'username associé + lancement de loginUser en param username & password
                 user = new User(password, username);
-                loginUser(password, username);
+                //loginUser(password, username);
+                FirebaseUser user_fire = mAuth.getCurrentUser();
+                user.setId_user(user_fire.getUid());
+
+                FirebaseFirestore.getInstance().collection("users").whereEqualTo(user.getUsername(), true).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            String userEmail = FirebaseFirestore.getInstance().collection("users").document(user_fire.getEmail()).get().toString();
+                            loginUser(userEmail, password, user_fire);
+                        }
+                    }
+                });
             }
         });
     }
 
     //connecte l'utilisateur actuel dans sa session
-    private void loginUser(String password, String username) {
-        //mAuth.signInWithEmailAndPassword()
+    private void loginUser(String email, String password, FirebaseUser user_fire) {
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                Log.d(TAG, "le client est authentifié");
+                Toast.makeText(getApplicationContext(), "Bienvenu" + user_fire.getUid(), Toast.LENGTH_LONG).show();
+                updateUI(user_fire);
+            }
+        });
     }
 
     private void updateUI(FirebaseUser user) {
