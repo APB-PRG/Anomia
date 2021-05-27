@@ -1,8 +1,5 @@
 package com.example.anomia;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,19 +12,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.core.Tag;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 
 public class page_connection extends AppCompatActivity {
 
@@ -38,7 +34,6 @@ public class page_connection extends AppCompatActivity {
 
     //editable text pour input des informations du user
     private EditText usernameText, passwordText;
-    private Button loginButton;
 
     //authentifciation + création du user (voir classe)
     private FirebaseAuth mAuth;
@@ -76,7 +71,7 @@ public class page_connection extends AppCompatActivity {
         //assignation de l'instance de firebaseAuth
         mAuth = FirebaseAuth.getInstance();
         //assoiciation du bouton login
-        loginButton = (Button) findViewById(R.id.login);
+        Button loginButton = (Button) findViewById(R.id.login);
 
         //action lorsque le bouton est pressé
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -94,16 +89,15 @@ public class page_connection extends AppCompatActivity {
 
                 //On renseigne l'user actuel avec le password et l'username associé + lancement de loginUser en param username & password
                 user = new User(password, username);
-                //loginUser(password, username);
-                FirebaseUser user_fire = mAuth.getCurrentUser();
-                user.setId_user(user_fire.getUid());
+                FirebaseUser user_fire = null;
+                //todo vérifier que correspond bien à un vrai mec
 
-                FirebaseFirestore.getInstance().collection("users").whereEqualTo(user.getUsername(), true).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                FirebaseFirestore.getInstance().collection("users").whereEqualTo("username", user.getUsername()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
-                            String userEmail = FirebaseFirestore.getInstance().collection("users").document(user_fire.getEmail()).get().toString();
-                            loginUser(userEmail, password, user_fire);
+                            String userEmail =  task.getResult().getDocuments().get(0).toObject(User.class).getEmail();
+                            loginUser(userEmail, password);
                         }
                     }
                 });
@@ -112,21 +106,27 @@ public class page_connection extends AppCompatActivity {
     }
 
     //connecte l'utilisateur actuel dans sa session
-    private void loginUser(String email, String password, FirebaseUser user_fire) {
+    private void loginUser(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 Log.d(TAG, "le client est authentifié");
+                FirebaseUser user_fire = mAuth.getCurrentUser();
+                System.out.println("UID client " + user_fire.getUid());
+                user.setId_user(user_fire.getUid());
+
                 Toast.makeText(getApplicationContext(), "Bienvenu" + user_fire.getUid(), Toast.LENGTH_LONG).show();
                 updateUI(user_fire);
             }
         });
     }
 
+    //utiliser user pour transmettre les paramètres
     private void updateUI(FirebaseUser user) {
         Intent profilIntent = new Intent(this, MainActivity.class);
         startActivity(profilIntent);
         Animatoo.animateFade(this);
+        mAuth.signOut();
     }
 
     private void createOnclicbtnsign_up() {
