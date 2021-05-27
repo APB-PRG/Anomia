@@ -17,13 +17,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.Source;
 
 public class page_connection extends AppCompatActivity {
 
@@ -89,13 +89,13 @@ public class page_connection extends AppCompatActivity {
 
                 //On renseigne l'user actuel avec le password et l'username associé + lancement de loginUser en param username & password
                 user = new User(password, username);
-                FirebaseUser user_fire = null;
-                //todo vérifier que correspond bien à un vrai mec
 
+                //regarde dans la base de données l'username correspondant à celui rentré par utilisteur
                 FirebaseFirestore.getInstance().collection("users").whereEqualTo("username", user.getUsername()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
+                            //récupération de l'email par query, get documents -> listes
                             String userEmail =  task.getResult().getDocuments().get(0).toObject(User.class).getEmail();
                             loginUser(userEmail, password);
                         }
@@ -107,9 +107,9 @@ public class page_connection extends AppCompatActivity {
 
     //connecte l'utilisateur actuel dans sa session
     private void loginUser(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(this,new OnSuccessListener<AuthResult>() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
+            public void onSuccess(AuthResult authResult) {
                 Log.d(TAG, "le client est authentifié");
                 FirebaseUser user_fire = mAuth.getCurrentUser();
                 System.out.println("UID client " + user_fire.getUid());
@@ -118,6 +118,7 @@ public class page_connection extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Bienvenu" + user_fire.getUid(), Toast.LENGTH_LONG).show();
                 updateUI(user_fire);
             }
+            //todo que faire si l'utilisateur rentre mal ses données?
         });
     }
 
