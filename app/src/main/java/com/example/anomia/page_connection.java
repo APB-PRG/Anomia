@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -24,6 +25,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import Model.User;
 
 public class page_connection extends AppCompatActivity {
 
@@ -117,9 +120,14 @@ public class page_connection extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "Bienvenu" + user_fire.getUid(), Toast.LENGTH_LONG).show();
                 updateUI(user_fire);
+            }}).addOnFailureListener(this, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                //toast
             }
-            //todo que faire si l'utilisateur rentre mal ses données?
         });
+            //todo que faire si l'utilisateur rentre mal ses données?
+
     }
 
     //utiliser user pour transmettre les paramètres
