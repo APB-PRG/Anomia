@@ -71,6 +71,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             username = itemView.findViewById(R.id.post_username);
             nb_flammes = itemView.findViewById(R.id.Nb_flamme);
             textPost = itemView.findViewById(R.id.post_text);
+            //test
         }
     }
 
