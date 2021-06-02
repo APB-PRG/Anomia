@@ -1,14 +1,12 @@
 package Adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.Group;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anomia.R;
@@ -22,8 +20,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.auth.User;
 
 import java.util.List;
-
-import javax.annotation.Nonnull;
 
 import Model.Post;
 
@@ -63,14 +59,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView post_image, like, comment, retransfer;
-        public TextView username, likes, publisher, description, comments;
+        public ImageView like, comment, repost;
+        public TextView username, nb_flammes, textPost;
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
 
-            //post_image = itemView.findViewById(R.id.);
-            //like = itemView.findViewById(R.id.);
+            like = itemView.findViewById(R.id.icone_flamme);
+            comment = itemView.findViewById(R.id.icone_comment_post);
+            repost = itemView.findViewById(R.id.icone_repost);
+            username = itemView.findViewById(R.id.post_username);
+            nb_flammes = itemView.findViewById(R.id.Nb_flamme);
+            textPost = itemView.findViewById(R.id.post_text);
         }
     }
 

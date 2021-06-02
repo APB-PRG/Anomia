@@ -28,7 +28,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/Username"
+                    android:id="@+id/post_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -50,7 +50,7 @@
                 android:padding="5dp">
 
                 <ImageView
-                    android:id="@+id/flamme"
+                    android:id="@+id/icone_flamme"
                     android:layout_width="25dp"
                     android:layout_height="23dp"
                     android:foregroundGravity="center"
@@ -62,10 +62,10 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/Nb_flamme"
                     android:layout_marginStart="5dp"
-                    android:layout_toEndOf="@+id/flamme"/>
+                    android:layout_toEndOf="@+id/icone_flamme"/>
 
                 <ImageView
-                    android:id="@+id/repost"
+                    android:id="@+id/icone_repost"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:layout_marginStart="10dp"
@@ -74,12 +74,12 @@
                     app:srcCompat="@drawable/ic_retweet_post" />
 
                 <ImageView
-                    android:id="@+id/comment_post"
+                    android:id="@+id/icone_comment_post"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="39dp"
                     android:foregroundGravity="center"
-                    android:layout_toEndOf="@+id/repost"
+                    android:layout_toEndOf="@+id/icone_repost"
                     app:srcCompat="@drawable/ic_comment_post" />
 
                 <TextView
@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/Nb_comment"
                     android:layout_marginStart="5dp"
-                    android:layout_toEndOf="@+id/comment_post"/>
+                    android:layout_toEndOf="@+id/icone_comment_post"/>
 
             </RelativeLayout>
         </LinearLayout>
