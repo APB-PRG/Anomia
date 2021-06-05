@@ -1,4 +1,4 @@
-package Model;
+package com.example.anomia.Model;
 
 public class User {
     private String email;

@@ -27,7 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import Model.User;
+import com.example.anomia.Model.User;
 
 public class page_creation_compte extends AppCompatActivity {
 

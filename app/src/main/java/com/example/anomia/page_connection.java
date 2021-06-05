@@ -26,7 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import Model.User;
+import com.example.anomia.Model.User;
 
 public class page_connection extends AppCompatActivity {
 

@@ -1,6 +1,7 @@
 package Adapter;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,11 +18,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.auth.User;
 
 import java.util.List;
 
-import Model.Post;
+import com.example.anomia.Model.Post;
+import com.example.anomia.Model.User;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
@@ -37,10 +38,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //View view = LayoutInflater.from(mContext).inflate(R.layout.post_item, viewGroup, false);
-        //return new PostAdapter.ViewHolder(view);
-        return  null;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.content_scrolling, viewGroup, false);
+        return new PostAdapter.ViewHolder(view);
     }
 
     @Override
@@ -48,7 +48,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         Post post = mPost.get(position);
-        //Glide.with(mContext).load()
+        holder.textPost.setVisibility(View.VISIBLE);
+        holder.textPost.setText(post.getDescription());
+
+        publisherInfo(holder.username, holder.textPost, post.getPublisher());
 
     }
 
@@ -75,16 +78,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         }
     }
 
-    private  void publisherInfo(ImageView image_profile, TextView username, TextView publisher, String userid){
+    private  void publisherInfo(TextView username, TextView Text_user, String userid){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(userid);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                //Glide.with(mContext).load(user.getImageur1().into(image_profile));
-                //username.setText(user.getUsername());
-                //publisher.setText(user.getUsername());
+                username.setText(user.getUsername());
+                Text_user.setText(user.getUsername());
             }
 
             @Override
