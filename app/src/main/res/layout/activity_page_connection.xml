@@ -46,8 +46,8 @@
         app:layout_constraintEnd_toStartOf="@+id/sign_up"
         app:layout_constraintHorizontal_bias="0.403"
         app:layout_constraintStart_toStartOf="@+id/rectangle_orange"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.508" />
+        app:layout_constraintTop_toTopOf="@+id/rectangle_orange"
+        app:layout_constraintVertical_bias="0.017" />
 
     <ImageView
         android:id="@+id/btncadenas"
@@ -94,7 +94,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.145"
         app:layout_constraintStart_toStartOf="@+id/rectangle_orange"
-        app:layout_constraintTop_toTopOf="@+id/sign_in"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_orange"
         app:layout_constraintVertical_bias="0.909" />
 
     <TextView
@@ -108,14 +108,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.812"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.508" />
+        app:layout_constraintTop_toTopOf="@+id/rectangle_orange"
+        app:layout_constraintVertical_bias="0.017" />
 
     <Button
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
+        android:backgroundTint="@color/yellow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

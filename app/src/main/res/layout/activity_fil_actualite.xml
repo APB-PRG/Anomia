@@ -19,18 +19,79 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:title="Fil_actualité"
+            android:background="@color/white"
             app:contentScrim="?attr/colorSecondary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
+
+
+            <RelativeLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="110dp"
+                android:layout_marginLeft="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Votre fil d'actualite!"
+                    android:textSize="35sp"
+                    android:textColor="@color/blue" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/Theme.Anomia.PopupOverlay" />
+                app:popupTheme="@style/Theme.Anomia.PopupOverlay">
+            </androidx.appcompat.widget.Toolbar>
 
+                <ImageView
+                    android:id="@+id/menu"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toStartOf="@id/icone_search"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_menu" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:id="@+id/icone_search"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_toStartOf="@id/search_bar"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_baseline_search_24" />
+
+
+                <EditText
+                    android:id="@+id/search_bar"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_centerInParent="true"
+                    android:background="@android:color/transparent"
+                    android:hint="Search"
+                    android:textColorHint="@color/blue" />
+
+                <ImageView
+                    android:id="@+id/user_profil"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="74dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="14dp"
+                    android:layout_toEndOf="@+id/search_bar"
+                    android:src="@drawable/ic_baseline_account_circle_24" />
+            </RelativeLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

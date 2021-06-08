@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.example.anomia.Model.Session;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,6 +38,7 @@ public class page_connection extends AppCompatActivity {
 
     //editable text pour input des informations du user
     private EditText usernameText, passwordText;
+    private Session session;//sauvegarde des données utilisateurs (session)
 
     //authentifciation + création du user (voir classe)
     private FirebaseAuth mAuth;
@@ -48,6 +50,7 @@ public class page_connection extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_connection);
+        session = new Session(getApplicationContext());
         initActivity();
     }
 
@@ -92,6 +95,8 @@ public class page_connection extends AppCompatActivity {
 
                 //On renseigne l'user actuel avec le password et l'username associé + lancement de loginUser en param username & password
                 user = new User(password, username);
+                session.setusename(username);
+
 
                 //regarde dans la base de données l'username correspondant à celui rentré par utilisteur
                 FirebaseFirestore.getInstance().collection("users").whereEqualTo("username", user.getUsername()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -115,10 +120,7 @@ public class page_connection extends AppCompatActivity {
             public void onSuccess(AuthResult authResult) {
                 Log.d(TAG, "le client est authentifié");
                 FirebaseUser user_fire = mAuth.getCurrentUser();
-                System.out.println("UID client " + user_fire.getUid());
-                user.setId_user(user_fire.getUid());
 
-                Toast.makeText(getApplicationContext(), "Bienvenu" + user_fire.getUid(), Toast.LENGTH_LONG).show();
                 updateUI(user_fire);
             }}).addOnFailureListener(this, new OnFailureListener() {
             @Override
@@ -131,11 +133,11 @@ public class page_connection extends AppCompatActivity {
     }
 
     //utiliser user pour transmettre les paramètres
-    private void updateUI(FirebaseUser user) {
-        Intent profilIntent = new Intent(this, MainActivity.class);
+    private void updateUI(FirebaseUser user_fire) {
+        Intent profilIntent = new Intent(this, fil_actualite.class);
+        //user_fire.startActivityForLinkWithProvider(profilIntent, )
         startActivity(profilIntent);
         Animatoo.animateFade(this);
-        mAuth.signOut();
     }
 
     private void createOnclicbtnsign_up() {
