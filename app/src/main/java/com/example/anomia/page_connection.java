@@ -95,8 +95,8 @@ public class page_connection extends AppCompatActivity {
 
                 //On renseigne l'user actuel avec le password et l'username associé + lancement de loginUser en param username & password
                 user = new User(password, username);
+                //permet d'avoir l'utilisateur connecté
                 session.setusename(username);
-
 
                 //regarde dans la base de données l'username correspondant à celui rentré par utilisteur
                 FirebaseFirestore.getInstance().collection("users").whereEqualTo("username", user.getUsername()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

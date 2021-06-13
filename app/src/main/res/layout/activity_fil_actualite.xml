@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -26,22 +27,26 @@
 
 
             <RelativeLayout
+                android:layout_width="373dp"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="110dp"
-                android:layout_marginLeft="15dp">
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="110dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Votre fil d'actualite!"
-                    android:textSize="35sp"
-                    android:textColor="@color/blue" />
-            </RelativeLayout>
+                    android:textColor="@color/blue"
+                    android:textSize="35sp" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/add_community"
+                    android:layout_width="41dp"
+                    android:layout_height="39dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_baseline_add_24" />
+            </RelativeLayout>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -49,24 +54,23 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/Theme.Anomia.PopupOverlay">
-            </androidx.appcompat.widget.Toolbar>
 
                 <ImageView
                     android:id="@+id/menu"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_centerInParent="true"
                     android:layout_marginLeft="5dp"
                     android:layout_toStartOf="@id/icone_search"
-                    android:layout_centerInParent="true"
                     android:src="@drawable/ic_menu" />
 
                 <ImageView
-                    android:layout_width="30dp"
                     android:id="@+id/icone_search"
+                    android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_centerInParent="true"
                     android:layout_marginStart="30dp"
                     android:layout_toStartOf="@id/search_bar"
-                    android:layout_centerInParent="true"
                     android:src="@drawable/ic_baseline_search_24" />
 
 
@@ -74,8 +78,8 @@
                     android:id="@+id/search_bar"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
                     android:layout_centerInParent="true"
+                    android:layout_marginStart="5dp"
                     android:background="@android:color/transparent"
                     android:hint="Search"
                     android:textColorHint="@color/blue" />
@@ -91,7 +95,13 @@
                     android:layout_marginEnd="14dp"
                     android:layout_toEndOf="@+id/search_bar"
                     android:src="@drawable/ic_baseline_account_circle_24" />
-            </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

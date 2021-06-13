@@ -14,7 +14,7 @@ public class Session {
     }
 
     public void setusename(String usename) {
-        prefs.edit().putString("usename", usename).commit();
+        prefs.edit().putString("usename", usename).apply();
     }
 
     public String getusename() {

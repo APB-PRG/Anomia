@@ -9,15 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Anomia">
+        <activity android:name=".creation_community"></activity>
         <activity
             android:name=".Community"
             android:label="@string/title_activity_community"
             android:theme="@style/Theme.Anomia.NoActionBar">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
         <activity android:name=".user_profil" />
         <activity android:name=".ecran_chargement" />
@@ -31,6 +27,11 @@
         <activity android:name=".page_connection" />
         <activity android:name=".page_creation_compte" />
         <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

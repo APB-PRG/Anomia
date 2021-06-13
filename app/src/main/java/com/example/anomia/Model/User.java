@@ -1,11 +1,16 @@
 package com.example.anomia.Model;
 
+import java.util.List;
+
 public class User {
     private String email;
     private String password;
     private String username;
     private String repassword;
     private String id_user;
+    private Community community;
+    private List<Community> list_comu;
+    private Integer i;
 
     public User() {
     }
@@ -15,6 +20,10 @@ public class User {
         this.password = password;
         this.username = username;
         this.repassword = repassword;
+    }
+
+    public User(Community community) {
+        this.community = community;
     }
 
     public User(String email, String password, String username, String repassword, String id_user) {
@@ -67,5 +76,13 @@ public class User {
 
     public void setRepassword(String repassword) {
         this.repassword = repassword;
+    }
+
+    public Community getcomu() {
+        return community;
+    }
+
+    public void setcomu(Community community) {
+        this.community = community;
     }
 }
