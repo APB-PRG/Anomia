@@ -1,6 +1,7 @@
 package Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -17,6 +21,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import org.w3c.dom.Document;
 
 import java.util.List;
 
@@ -26,8 +39,10 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
 
     private Context mContext;
     private List<Community> mCommunity;
+    private FirebaseAuth mAuth;
 
-    private DatabaseReference firebaseCommunity;
+    //private firebaseCommunity = FirebaseFirestore.getInstance().collection("community").get();
+    private CollectionReference firebaseCommunity = FirebaseFirestore.getInstance().collection("community");
 
     public CommunityAdapter(Context mContext, List<Community> mCommunity) {
         this.mContext = mContext;
@@ -43,7 +58,6 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        firebaseCommunity = FirebaseDatabase.getInstance().getReference();
 
         final Community community = mCommunity.get(position);
 
@@ -51,12 +65,32 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
 
         holder.name_community.setText(community.getName());
         holder.nbr_follower.setText(community.getNbr_follower());
+        isFollowing(mAuth.getUid(), holder.btn_follow);
 
 
         //TODO creer fabrication communaute, ensuite video "INSTAGRAM App with Firebase - Part 4" 13 minutes 30 secondes
-        if (community.getId().equals(firebaseCommunity.child("community").child(community.getId()))){
+        if (community.getId().equals(firebaseCommunity.document().getId())){
             holder.btn_follow.setVisibility(View.GONE);
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
+                editor.putString("profileid", mAuth.getUid());
+                editor.apply();
+
+            }
+        });
+
+        holder.btn_follow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (holder.btn_follow.getText().toString().equals("follow")){
+                    FirebaseFirestore.getInstance().collection("follow").document(mAuth.getUid()).collection(firebaseCommunity.document().getId());
+                }
+            }
+        });
     }
 
     @Override
@@ -68,7 +102,6 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
 
         public TextView name_community;
         public TextView nbr_follower;
-        public CircleImageView image_community;
         public Button btn_follow;
 
         public ViewHolder(@NonNull View itemView) {
@@ -76,14 +109,23 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
 
             name_community = itemView.findViewById(R.id.comunity_name);
             nbr_follower = itemView.findViewById(R.id.nbr_follower);
-            image_community = itemView.findViewById(R.id.image_community);
             btn_follow = itemView.findViewById(R.id.btn_following_community);
         }
     }
 
     private void isFollowing(String id_community, Button button){
-       // DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
-                //.child()
+        mAuth = FirebaseAuth.getInstance();
+        Query reference_follow = FirebaseFirestore.getInstance().collection("follow").whereEqualTo("id", mAuth.getUid()).whereEqualTo("following", firebaseCommunity.document().getId());
+        reference_follow.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (value.equals(id_community)){
+                    button.setText("following");
+                }else{
+                    button.setText("follow");
+                }
+            }
+        });
     }
 
 }

@@ -50,7 +50,8 @@ public class creation_community extends AppCompatActivity {
         Spinner dropdown = findViewById(R.id.spinner1);
         Spinner dropdown2 = findViewById(R.id.spinner2);
         String[] items = new String[]{"Humoristic", "Video games", "Technology", "Fun", "Informations"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items); //simple_spinner_dropdown_item
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_text, items); //simple_spinner_dropdown_item
+        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
         dropdown.setAdapter(adapter);
         dropdown2.setAdapter(adapter);
 
