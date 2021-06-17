@@ -18,6 +18,7 @@ public class fil_actualite extends AppCompatActivity {
 
     private ImageView profil_user;
     private ImageView add_community;
+    private ImageView settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +35,11 @@ public class fil_actualite extends AppCompatActivity {
     private void initActivity() {
         profil_user = findViewById(R.id.user_profil);
         add_community = findViewById(R.id.add_community);
+        settings=findViewById(R.id.menu);
 
         createOnclicprofil_user();
         createOnclicadd();
+        createonclicsettings();
     }
 
     private void createOnclicadd() {
@@ -67,5 +70,20 @@ public class fil_actualite extends AppCompatActivity {
         Intent intent = new Intent(fil_actualite.this, user_profil.class);
         startActivity(intent);
         Animatoo.animateFade(this);
+    }
+
+    private void createonclicsettings() {
+        settings.setOnClickListener(new ImageView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivitysettings();
+            }
+        });
+    }
+
+    private void openActivitysettings() {
+        Intent intent = new Intent(fil_actualite.this, settings.class);
+        startActivity(intent);
+        Animatoo.animateSlideRight(this);
     }
 }

@@ -36,6 +36,8 @@ public class page_connection extends AppCompatActivity {
     private TextView signin;
     private ImageView btncadenas;
 
+    private ImageView settings;
+
     //editable text pour input des informations du user
     private EditText usernameText, passwordText;
     private Session session;//sauvegarde des données utilisateurs (session)
@@ -64,6 +66,9 @@ public class page_connection extends AppCompatActivity {
         createOnclicbtnsign_up();
         createOnclicbtnsign_in();
         createOnclicbtncadenas();
+
+        settings=findViewById(R.id.settings_connexion);
+        createonclicsettings();
 
         //création de la fonction login pour le user
         login();
@@ -183,5 +188,20 @@ public class page_connection extends AppCompatActivity {
         Intent intent = new Intent(page_connection.this, MainActivity.class);
         startActivity(intent);
         Animatoo.animateFade(this);
+    }
+
+    private void createonclicsettings() {
+        settings.setOnClickListener(new ImageView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivitysettings();
+            }
+        });
+    }
+
+    private void openActivitysettings() {
+        Intent intent = new Intent(page_connection.this, settings.class);
+        startActivity(intent);
+        Animatoo.animateSlideRight(this);
     }
 }

@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView btncadenas;
     private ImageView settings;
     private ImageView fleche;
+    private View fil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         //changer fil actualité pour mainactivité!!
         setContentView(R.layout.activity_main);
+        gesture gesture = new gesture(R.layout.activity_main, MainActivity.class, com.example.anomia.settings.class);
+
         initActivity();
     }
 
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         btncadenas = findViewById(R.id.btncadenas);
         settings=findViewById(R.id.settings);
         fleche = findViewById(R.id.fleche_fileactualite);
+        fil = findViewById(R.id.rectangle_1);
 
         //listening du bouton cadenas
         createOnclicbtncadenas();
@@ -42,6 +46,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createOnclicfleche() {
+        fil.setOnClickListener(new ImageView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivityfile_actu();
+            }
+        });
         fleche.setOnClickListener(new ImageView.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     private void openActivitysettings() {
         Intent intent = new Intent(MainActivity.this, settings.class);
         startActivity(intent);
+        Animatoo.animateSlideRight(this);
     }
 
     //redirection vers connexion_page

@@ -36,6 +36,7 @@ public class page_creation_compte extends AppCompatActivity {
     private ImageView btncadenas;
     private EditText usernameText, passwordText, repasswordText, emailText;
     private Button registerButton;
+    private ImageView settings;
 
     private FirebaseDatabase database;
     //private DatabaseReference mDatabase;
@@ -61,12 +62,14 @@ public class page_creation_compte extends AppCompatActivity {
         signin = (TextView) findViewById(R.id.sign_in);
         signup = (TextView) findViewById(R.id.sign_up);
         btncadenas = (ImageView) findViewById(R.id.btncadenas);
+        settings=findViewById(R.id.settings_creation);
 
         //lancement activité
         createOnclicbtnsign_in();
         createOnclicbtnsign_up();
         createOnclicbtncadenas();
         registration();
+        createonclicsettings();
     }
 
     //enregistrement d'un client
@@ -195,4 +198,18 @@ public class page_creation_compte extends AppCompatActivity {
         Animatoo.animateFade(this);
     }
 
+    private void createonclicsettings() {
+        settings.setOnClickListener(new ImageView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivitysettings();
+            }
+        });
+    }
+
+    private void openActivitysettings() {
+        Intent intent = new Intent(page_creation_compte.this, settings.class);
+        startActivity(intent);
+        Animatoo.animateSlideRight(this);
+    }
 }
