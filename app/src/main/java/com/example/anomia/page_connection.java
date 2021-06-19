@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.anomia.Model.Session;
@@ -30,6 +33,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.example.anomia.Model.User;
 
 public class page_connection extends AppCompatActivity {
+    page_connection.SwipeListener swipeListener;
+    ConstraintLayout cstr_layout;
 
     //bouton connexion, inscritption
     private TextView signup;
@@ -53,6 +58,10 @@ public class page_connection extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_connection);
         session = new Session(getApplicationContext());
+
+        cstr_layout = findViewById(R.id.layout_connexion);
+        swipeListener = new SwipeListener(cstr_layout);
+
         initActivity();
     }
 
@@ -76,8 +85,8 @@ public class page_connection extends AppCompatActivity {
 
     private void login() {
         //association des entrées utilisateurs
-        usernameText = findViewById(R.id.username);
-        passwordText = findViewById(R.id.pswduser);
+        usernameText = findViewById(R.id.name);
+        passwordText = findViewById(R.id.password);
 
         //assignation de l'instance de firebaseAuth
         mAuth = FirebaseAuth.getInstance();
@@ -203,5 +212,44 @@ public class page_connection extends AppCompatActivity {
         Intent intent = new Intent(page_connection.this, settings.class);
         startActivity(intent);
         Animatoo.animateSlideRight(this);
+    }
+
+    public class SwipeListener implements View.OnTouchListener {
+        GestureDetector gestureDetector;
+
+        SwipeListener(View view){
+            int threshold = 100;
+            int velocity_threshold = 100;
+
+            GestureDetector.SimpleOnGestureListener listener = new GestureDetector.SimpleOnGestureListener(){
+                public boolean onDown(MotionEvent e){
+                    return true;
+                }
+
+                @Override
+                public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                    float xDiff = e2.getX() - e1.getX();
+                    float yDiff = e2.getY() - e1.getY();
+                    try{
+                        if (Math.abs(xDiff) > threshold && Math.abs(velocityX) > velocity_threshold){
+                            if (xDiff < 0){
+                                openActivitycreation_compte();
+                            }
+                            return true;
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    return false;
+                }
+            };
+            gestureDetector = new GestureDetector(listener);
+            view.setOnTouchListener(this);
+        }
+
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            return gestureDetector.onTouchEvent(motionEvent);
+        }
     }
 }

@@ -24,8 +24,7 @@ public class Community extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        toolBarLayout.setTitle(getTitle());
-        settings=findViewById(R.id.settings_profil);
+        settings=findViewById(R.id.settings_community);
 
         createonclicsettings();
     }
