@@ -110,15 +110,14 @@ public class page_creation_compte extends AppCompatActivity {
                 }
 
                 //TODO faire en sorte de pouvoir vérifier la correspondance en entre password et repassword
-                //if (password != repassword){
-                  //  Toast.makeText(getApplicationContext(), "Please, enter the same password", Toast.LENGTH_LONG).show();
-                  //  return;
-                // }
-
-                user = new User(email, password, username, repassword);
-                registerUser(password, email, username);
+                if (TextUtils.equals(password, repassword)){
+                    user = new User(email, password, username, repassword);
+                    registerUser(password, email, username);
+                }else{
+                    Toast.makeText(getApplicationContext(), "Please, enter the same password", Toast.LENGTH_LONG).show();
+                    return;
+                }
             }
-            //ajout d'une nouvelle maj github
         });
     }
 
@@ -147,7 +146,7 @@ public class page_creation_compte extends AppCompatActivity {
                 }else{
                     //sign in fails, display a message to the user
                     Log.d(TAG, "createUserWithEmail: failure", task.getException());
-                    Toast.makeText(page_creation_compte.this, "Authentification failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(page_creation_compte.this, "Password should be at least 6 characters", Toast.LENGTH_SHORT).show();
                 }
             }
         });

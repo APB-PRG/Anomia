@@ -16,7 +16,13 @@
             android:theme="@style/Theme.Anomia.NoActionBar">
         </activity>
         <activity android:name=".user_profil" />
-        <activity android:name=".ecran_chargement" />
+        <activity android:name=".ecran_chargement">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".fil_actualite"
             android:label="@string/title_activity_fil_actualite"
@@ -27,11 +33,7 @@
         <activity android:name=".page_connection" />
         <activity android:name=".page_creation_compte" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

@@ -36,6 +36,8 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.ViewHolder>{
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String id_Community = "id";
 
     private Context mContext;
     private List<Community> mCommunity;
@@ -68,7 +70,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         isFollowing(mAuth.getUid(), holder.btn_follow);
 
 
-        //TODO creer fabrication communaute, ensuite video "INSTAGRAM App with Firebase - Part 4" 13 minutes 30 secondes
+        //TODO creer fabrication communaute, ensuite video "INSTAGRAM com.example.anomia.App with Firebase - Part 4" 13 minutes 30 secondes
         if (community.getId().equals(firebaseCommunity.document().getId())){
             holder.btn_follow.setVisibility(View.GONE);
         }
@@ -76,10 +78,10 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences.Editor editor = mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
-                editor.putString("profileid", mAuth.getUid());
+                SharedPreferences sharedPreferences =  mContext.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE );
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(id_Community, firebaseCommunity.getId());
                 editor.apply();
-
             }
         });
 

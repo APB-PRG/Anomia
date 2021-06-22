@@ -13,6 +13,7 @@ public class ecran_chargement extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Context c = App.getContext();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ecran_chargement);
 
@@ -22,7 +23,7 @@ public class ecran_chargement extends AppCompatActivity {
             public void run() {
                 Intent intent = new Intent(ecran_chargement.this, MainActivity.class);
                 startActivity(intent);
-                Animatoo.animateFade(getApplicationContext());
+                Animatoo.animateFade(c);
             }
         }, 2500);
     }

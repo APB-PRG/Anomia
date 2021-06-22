@@ -13,25 +13,33 @@ import com.example.anomia.Model.Session;
 import com.example.anomia.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class user_profil extends AppCompatActivity {
 
     private TextView username;
     private Session session;
     private ImageView settings;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profil);
         session = new Session(getApplicationContext());
+        mAuth = FirebaseAuth.getInstance();
 
         initActivity();
     }
 
     private void initActivity() {
-        TextView username = (TextView)findViewById(R.id.username);
-        username.setText(session.getusename().toUpperCase());
+        if (mAuth.getCurrentUser() != null) {
+            TextView username = (TextView)findViewById(R.id.username);
+            username.setText(session.getusename().toUpperCase());
+        }else{
+            TextView username = (TextView)findViewById(R.id.username);
+            username.setText("");
+        }
         settings=findViewById(R.id.settings_profil);
 
         createonclicsettings();
